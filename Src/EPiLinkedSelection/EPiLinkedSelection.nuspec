@@ -13,5 +13,9 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>EPiServerModulePackage EPiServer Linked Selection</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="[5,6)" />
+      <dependency id="EPiServer.CMS.UI.Core" version="[9,10)" />
+    </dependencies>
   </metadata>
 </package>
