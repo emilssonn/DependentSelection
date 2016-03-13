@@ -13,5 +13,7 @@
         public const string Values = "values";
 
         public const string Selections = "selections";
+
+        public const string StoreUrl = "storeUrl";
     }
 }

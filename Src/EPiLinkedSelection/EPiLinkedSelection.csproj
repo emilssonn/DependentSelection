@@ -162,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="ILinkedSelectionFactory.cs" />
+    <Compile Include="LinkedSelectionFactoryRegistrationAttribute.cs" />
+    <Compile Include="LinkedSelectionStore.cs" />
     <Compile Include="LinkedSelectOneAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
