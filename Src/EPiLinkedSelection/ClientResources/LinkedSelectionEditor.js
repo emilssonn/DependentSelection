@@ -31,7 +31,7 @@ function (
         },
         _update: function (data, sender) {
             // Empty string?
-            if (!data.value && this.readOnlyWhen.indexOf(data.name)) {
+            if (!data.value && this.readOnlyWhen.indexOf(data.name) > -1) {
                 this.set("readOnly", true)
                 this.set("value", null);
                 this._setDisplay(null);
