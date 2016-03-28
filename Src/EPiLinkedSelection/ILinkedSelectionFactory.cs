@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using EPiServer.Core;
 using EPiServer.Shell.ObjectEditing;
 
 namespace EPiLinkedSelection
@@ -12,10 +11,8 @@ namespace EPiLinkedSelection
         /// <summary>
         /// Creates a list of selection items for a specific property.
         /// </summary>
-        /// <param name="contentData">The content data.</param>
-        /// <returns>
-        /// A list of selection items for a specific property.
-        /// </returns>
-        IEnumerable<ISelectItem> GetSelections(IContentData contentData);
+        /// <param name="values">The values.</param>
+        /// <returns>A list of selection items for a specific property.</returns>
+        IEnumerable<ISelectItem> GetSelections(Dictionary<string, object> values);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
@@ -34,7 +35,7 @@ namespace EPiLinkedSelection
 
             contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
 
-            //var format = _moduleTable.Service.ResolvePath("EPiLinkedSelection", "stores/linkedselection/{0}/");
+            //var format = _moduleTable.Service.ResolvePath("app", "stores/linkedselection/{0}/");
             var format = "/modules/app/stores/linkedselection/{0}/";
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
 
@@ -47,18 +48,22 @@ namespace EPiLinkedSelection
                 contentDataMetadata.EditorConfiguration[Constants.ReadOnlyWhen] = new string[0];
             }
 
+            IDictionary<string, object> values = new Dictionary<string, object>();
+
             if (DependsOn != null)
             {
-                contentDataMetadata.EditorConfiguration[Constants.DependsOn] = DependsOn.Select(x => char.ToLowerInvariant(x[0]) + x.Substring(1));
+                foreach (var keyValuePair in contentDataMetadata.OwnerContent.Property.Where(p => DependsOn.Contains(p.Name)).Select(p => new KeyValuePair<string, object>(p.Name, p.Value)))
+                {
+                    values.Add(keyValuePair);
+                }
             }
-            else
-            {
-                contentDataMetadata.EditorConfiguration[Constants.DependsOn] = new string[0];
-            }
+
+            contentDataMetadata.EditorConfiguration[Constants.DependsOn] = values;
+
 
             var linkedSelectionFactory = _serviceLocator.Service.GetInstance(LinkedSelectionFactoryType) as ILinkedSelectionFactory;
 
-            contentDataMetadata.EditorConfiguration[Constants.Selections] = linkedSelectionFactory.GetSelections(contentDataMetadata.OwnerContent);
+            contentDataMetadata.EditorConfiguration[Constants.Selections] = linkedSelectionFactory.GetSelections(values as Dictionary<string, object>);
         }
     }
 }

@@ -3,18 +3,16 @@
     "dojo/_base/connect",
 
     "epi-cms/contentediting/editors/SelectionEditor",
-    "epi/shell/store/JsonRest",
-    "epi/shell/_ContextMixin"
+    "epi/shell/store/JsonRest"
 ],
 function (
     declare,
     connect,
 
     SelectionEditor,
-    JsonRest,
-    _ContextMixin
+    JsonRest
 ) {
-    return declare([SelectionEditor, _ContextMixin], {
+    return declare([SelectionEditor], {
         eventHandle: null,
         restStore: null,
 
@@ -34,33 +32,28 @@ function (
             if (!data.value && this.readOnlyWhen.indexOf(data.name) > -1) {
                 this.set("readOnly", true)
                 this.set("value", null);
-
                 this._setDisplay(null);
                 this._updateSelection();
                 this._handleOnChange(null, undefined);
                 return;
             }
 
-            if (this.dependsOn.indexOf(data.name) > -1) {
-                var that = this;
+            for (var prop in this.dependsOn) {
+                if (this.dependsOn.hasOwnProperty(prop) === true && prop === data.name) {
+                    this.dependsOn[prop] = data.value;
+                    var that = this;
+                    this.restStore.query(this.dependsOn).then(function (items) {
+                        that.set("readOnly", false)
+                        that.set("selections", items);
+                        that.set("value", null);
 
-                var currentContextID = this._currentContext.id.split("_");
-                var contentReference = {
-                    contentID: currentContextID[0],
-                    versionID: currentContextID[1]
+                        that._setSelectionsAttr(items);
+                        that._setDisplay(null);
+                        that._updateSelection();
+                        that._handleOnChange(null, undefined);
+                    });
+                    break;
                 }
-
-                this.restStore.query(contentReference).then(function (items) {
-                    that.set("readOnly", false)
-                    that.set("value", null);
-
-                    that.set("selections", items);
-                    that._setSelectionsAttr(items);
-
-                    that._setDisplay(null);
-                    that._updateSelection();
-                    that._handleOnChange(null, undefined);
-                });
             }
         },
         destroy: function () {
