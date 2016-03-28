@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Web.Mvc;
 using EPiServer.Cms.Shell.UI.ObjectEditing;
 using EPiServer.ServiceLocation;
@@ -36,20 +34,15 @@ namespace EPiLinkedSelection
             contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
             contentDataMetadata.EditorConfiguration[Constants.ReadOnlyWhen] = ReadOnlyWhen;
 
-            //var format = _moduleTable.Service.ResolvePath("app", "stores/linkedselection/{0}/");
+            //var format = _moduleTable.Service.ResolvePath("EPiLinkedSelection", "stores/linkedselection/{0}/");
             var format = "/modules/app/stores/linkedselection/{0}/";
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
 
-            IDictionary<string, object> values = new Dictionary<string, object>();
-            foreach(var keyValuePair in contentDataMetadata.OwnerContent.Property.Where(p => DependsOn.Contains(p.Name)).Select(p => new KeyValuePair<string, object>(p.Name, p.Value)))
-            {
-                values.Add(keyValuePair);
-            }
-            contentDataMetadata.EditorConfiguration[Constants.DependsOn] = values;
+            contentDataMetadata.EditorConfiguration[Constants.DependsOn] = DependsOn;
 
             var linkedSelectionFactory = _serviceLocator.Service.GetInstance(LinkedSelectionFactoryType) as ILinkedSelectionFactory;
 
-            contentDataMetadata.EditorConfiguration[Constants.Selections] = linkedSelectionFactory.GetSelections(values as Dictionary<string, object>);
+            contentDataMetadata.EditorConfiguration[Constants.Selections] = linkedSelectionFactory.GetSelections(contentDataMetadata.OwnerContent);
         }
     }
 }
