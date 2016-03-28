@@ -4,7 +4,7 @@ using EPiServer.ServiceLocation;
 namespace EPiLinkedSelection
 {
     /// <summary>
-    /// Register a <see cref="ILinkedSelectionFactory"/> instance to IOC container.
+    /// Register a <see cref="ILinkedSelectionFactory"/> instance to the IOC container.
     /// </summary>
     /// <seealso cref="ServicePlugInAttributeBase" />
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
