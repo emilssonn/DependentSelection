@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using EPiServer.Cms.Shell.UI.ObjectEditing;
 using EPiServer.ServiceLocation;
@@ -32,13 +33,28 @@ namespace EPiLinkedSelection
                 return;
 
             contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
-            contentDataMetadata.EditorConfiguration[Constants.ReadOnlyWhen] = ReadOnlyWhen;
 
             //var format = _moduleTable.Service.ResolvePath("EPiLinkedSelection", "stores/linkedselection/{0}/");
             var format = "/modules/app/stores/linkedselection/{0}/";
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
 
-            contentDataMetadata.EditorConfiguration[Constants.DependsOn] = DependsOn;
+            if (ReadOnlyWhen != null)
+            {
+                contentDataMetadata.EditorConfiguration[Constants.ReadOnlyWhen] = ReadOnlyWhen.Select(x => char.ToLowerInvariant(x[0]) + x.Substring(1));
+            }
+            else
+            {
+                contentDataMetadata.EditorConfiguration[Constants.ReadOnlyWhen] = new string[0];
+            }
+
+            if (DependsOn != null)
+            {
+                contentDataMetadata.EditorConfiguration[Constants.DependsOn] = DependsOn.Select(x => char.ToLowerInvariant(x[0]) + x.Substring(1));
+            }
+            else
+            {
+                contentDataMetadata.EditorConfiguration[Constants.DependsOn] = new string[0];
+            }
 
             var linkedSelectionFactory = _serviceLocator.Service.GetInstance(LinkedSelectionFactoryType) as ILinkedSelectionFactory;
 

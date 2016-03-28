@@ -64,10 +64,10 @@ function (
             }
         },
         destroy: function () {
+            this.inherited(arguments);
             if (this.eventHandle) {
                 connect.unsubscribe(this.eventHandle);
             }
-            this.inherited(arguments);
         }
     });
 });
