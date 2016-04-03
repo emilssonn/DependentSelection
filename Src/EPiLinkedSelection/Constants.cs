@@ -9,5 +9,9 @@
         public const string Selections = "selections";
 
         public const string StoreUrl = "storeUrl";
+
+        public const string UseContentData = "useContentData";
+
+        public const string ContentDataStoreUrl = "contentDataStoreUrl";
     }
 }

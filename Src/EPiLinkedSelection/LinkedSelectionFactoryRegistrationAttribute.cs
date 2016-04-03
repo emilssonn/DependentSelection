@@ -4,14 +4,14 @@ using EPiServer.ServiceLocation;
 namespace EPiLinkedSelection
 {
     /// <summary>
-    /// Register a <see cref="ILinkedSelectionFactory"/> instance to the IOC container.
+    /// Register a <see cref="ILinkedSelectionFactory" /> instance to the IOC container.
     /// </summary>
-    /// <seealso cref="ServicePlugInAttributeBase" />
+    /// <seealso cref="EPiServer.ServiceLocation.ServicePlugInAttributeBase" />
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class LinkedSelectionFactoryRegistrationAttribute : ServicePlugInAttributeBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LinkedSelectionFactoryRegistrationAttribute"/> class.
+        /// Initializes a new instance of the <see cref="LinkedSelectionFactoryRegistrationAttribute" /> class.
         /// </summary>
         public LinkedSelectionFactoryRegistrationAttribute()
             : base(typeof(ILinkedSelectionFactory))
