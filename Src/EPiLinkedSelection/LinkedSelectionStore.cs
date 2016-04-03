@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
@@ -13,36 +13,52 @@ namespace EPiLinkedSelection
     /// </summary>
     /// <seealso cref="EPiServer.Shell.Services.Rest.RestControllerBase" />
     [RestStore("linkedselection")]
-    public class LinkedSelectionStore : RestControllerBase
+    internal class LinkedSelectionStore : RestControllerBase
     {
         private readonly Injected<IServiceLocator> _serviceLocator;
+        private readonly IEnumerable<ILinkedSelectionFactory> _linkedSelectionFactories;
 
         /// <summary>
-        /// Gets a list of selection items for a specific <see cref="ILinkedSelectionFactory"/>.
+        /// Initializes a new instance of the <see cref="LinkedSelectionStore" /> class.
+        /// </summary>
+        /// <param name="linkedSelectionFactories">The linked selection factories.</param>
+        public LinkedSelectionStore(IEnumerable<ILinkedSelectionFactory> linkedSelectionFactories)
+        {
+            _linkedSelectionFactories = linkedSelectionFactories;
+        }
+
+        /// <summary>
+        /// Gets a list of selection items for a specific <see cref="ILinkedSelectionFactory" />.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="values">The values.</param>
         /// <returns></returns>
         [HttpPost]
-        public RestResult Post(string id, Dictionary<string, object> values)
+        public RestResultBase Post(string id, Dictionary<string, object> values)
         {
-            var type = Type.GetType(id);
-            var linkedSelectionFactory = _serviceLocator.Service.GetInstance(type) as ILinkedSelectionFactory;
+            ILinkedSelectionFactory linkedSelectionFactory = _linkedSelectionFactories != null ? _linkedSelectionFactories.FirstOrDefault(x => string.Equals(x.GetType().FullName, id)) : null;
+            if (linkedSelectionFactory == null)
+            {
+                return new RestStatusCodeResult(404, "No matching linked selection factory was found");
+            }
 
             return Rest(linkedSelectionFactory.GetSelections(values));
         }
 
         /// <summary>
-        /// Gets a list of selection items for a specific <see cref="ILinkedSelectionFactory"/>.
+        /// Gets a list of selection items for a specific <see cref="ILinkedSelectionFactory" />.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="complexReference">The complex reference.</param>
         /// <returns></returns>
         [HttpGet]
-        public RestResult Get(string id, string complexReference)
+        public RestResultBase Get(string id, string complexReference)
         {
-            var type = Type.GetType(id);
-            var linkedSelectionFactory = _serviceLocator.Service.GetInstance(type) as ILinkedSelectionFactory;
+            ILinkedSelectionFactory linkedSelectionFactory = _linkedSelectionFactories != null ? _linkedSelectionFactories.FirstOrDefault(x => string.Equals(x.GetType().FullName, id)) : null;
+            if (linkedSelectionFactory == null)
+            {
+                return new RestStatusCodeResult(404, "No matching linked selection factory was found");
+            }
 
             var contentLoader = _serviceLocator.Service.GetInstance<IContentLoader>();
             IContentData contentData = contentLoader.Get<IContentData>(new ContentReference(complexReference));

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>EPiLinkedSelection</id>
     <version>$version$</version>
@@ -17,9 +17,9 @@
       <dependency id="Microsoft.AspNet.Mvc" version="[5,6)" />
       <dependency id="EPiServer.CMS.UI.Core" version="[9,10)" />
     </dependencies>
-    <files>
-      <file src="module.config" target="content/modules/_protected/EPiLinkedSelection" />
-      <file src="ClientResources/LinkedSelectionEditor.js" target="content/modules/_protected/EPiLinkedSelection/ClientResources" />
-    </files>
   </metadata>
+  <files>
+    <file src="module.config" target="content/modules/_protected/EPiLinkedSelection" />
+    <file src="ClientResources/LinkedSelectionEditor.js" target="content/modules/_protected/EPiLinkedSelection/ClientResources" />
+  </files>
 </package>

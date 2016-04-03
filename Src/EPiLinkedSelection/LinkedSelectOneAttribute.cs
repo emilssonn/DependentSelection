@@ -20,7 +20,6 @@ namespace EPiLinkedSelection
     {
         private readonly Injected<IServiceLocator> _serviceLocator;
         private readonly Injected<ModuleTable> _moduleTable;
-        private Type LinkedSelectionFactoryType { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LinkedSelectOneAttribute"/> class.
@@ -36,6 +35,14 @@ namespace EPiLinkedSelection
                 
             LinkedSelectionFactoryType = linkedSelectionFactoryType;
         }
+
+        /// <summary>
+        /// Gets the type of the linked selection factory.
+        /// </summary>
+        /// <value>
+        /// The type of the linked selection factory.
+        /// </value>
+        public Type LinkedSelectionFactoryType { get; private set; }
 
         /// <summary>
         /// Gets or sets the properties to depend on.
@@ -81,8 +88,7 @@ namespace EPiLinkedSelection
                 contentDataMetadata.EditorConfiguration[Constants.ContentDataStoreUrl] = string.Format(CultureInfo.InvariantCulture, contentDataStoreUrl, iContent.ContentLink.ToString()).ToLower();
             }
 
-            var format1 = _moduleTable.Service.ResolvePath("epilinkedselection", "stores/linkedselection/{0}/");
-            var format = "/modules/app/stores/linkedselection/{0}/";
+            var format = _moduleTable.Service.ResolvePath("epilinkedselection", "stores/linkedselection/{0}/");
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
 
             // This property is read only when any of these properties are null or empty.

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EPiLinkedSelection")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("EPiLinkedSelection")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Peter Emilsson")]
 [assembly: AssemblyProduct("EPiLinkedSelection")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2016 Peter Emilsson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

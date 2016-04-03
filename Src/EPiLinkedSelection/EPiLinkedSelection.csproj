@@ -169,7 +169,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientResources\LinkedSelectionEditor.js" />
+    <None Include="ClientResources\LinkedSelectionEditor.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
