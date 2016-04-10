@@ -8,7 +8,8 @@
 
     "epi-cms/contentediting/editors/SelectionEditor",
     "epi/shell/store/JsonRest",
-    "epi/shell/_ContextMixin"
+    "epi/shell/_ContextMixin",
+    "epi/string"
 ],
 function (
     declare,
@@ -20,7 +21,8 @@ function (
 
     SelectionEditor,
     JsonRest,
-    _ContextMixin
+    _ContextMixin,
+    epiString
 ) {
     return declare([SelectionEditor, _ContextMixin], {
         eventHandle: null,
@@ -72,7 +74,7 @@ function (
         },
         _update: function (data, sender) {
             // If we should make this property read only and set the value to null.
-            if (!data.value && this.readOnlyWhen.indexOf(data.name) > -1) {
+            if (this.readOnlyWhen.indexOf(data.name) > -1 && epiString.isNullOrEmpty(data.value) === true) {
                 this.set("readOnly", true);
                 this._setValueAttr(null, undefined);
             } else {
