@@ -15,7 +15,7 @@ namespace EPiLinkedSelection
     [RestStore("linkedselection")]
     internal class LinkedSelectionStore : RestControllerBase
     {
-        private readonly Injected<IServiceLocator> _serviceLocator;
+        private readonly Injected<IContentLoader> _contentLoader;
         private readonly IEnumerable<ILinkedSelectionFactory> _linkedSelectionFactories;
 
         /// <summary>
@@ -60,8 +60,7 @@ namespace EPiLinkedSelection
                 return new RestStatusCodeResult(404, "No matching linked selection factory was found");
             }
 
-            var contentLoader = _serviceLocator.Service.GetInstance<IContentLoader>();
-            IContentData contentData = contentLoader.Get<IContentData>(new ContentReference(complexReference));
+            IContentData contentData = _contentLoader.Service.Get<IContentData>(new ContentReference(complexReference));
 
             return Rest(linkedSelectionFactory.GetSelectionsByContentData(contentData));
         }
