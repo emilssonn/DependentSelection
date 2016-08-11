@@ -31,24 +31,6 @@ namespace EPiLinkedSelection
         /// Gets a list of selection items for a specific <see cref="ILinkedSelectionFactory" />.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="values">The values.</param>
-        /// <returns></returns>
-        [HttpPost]
-        public RestResultBase Post(string id, Dictionary<string, object> values)
-        {
-            ILinkedSelectionFactory linkedSelectionFactory = _linkedSelectionFactories != null ? _linkedSelectionFactories.FirstOrDefault(x => string.Equals(x.GetType().FullName, id)) : null;
-            if (linkedSelectionFactory == null)
-            {
-                return new RestStatusCodeResult(404, "No matching linked selection factory was found");
-            }
-
-            return Rest(linkedSelectionFactory.GetSelections(values));
-        }
-
-        /// <summary>
-        /// Gets a list of selection items for a specific <see cref="ILinkedSelectionFactory" />.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         /// <param name="complexReference">The complex reference.</param>
         /// <returns></returns>
         [HttpGet]
@@ -62,7 +44,7 @@ namespace EPiLinkedSelection
 
             IContentData contentData = _contentLoader.Service.Get<IContentData>(new ContentReference(complexReference));
 
-            return Rest(linkedSelectionFactory.GetSelectionsByContentData(contentData));
+            return Rest(linkedSelectionFactory.GetSelections(contentData));
         }
     }
 }

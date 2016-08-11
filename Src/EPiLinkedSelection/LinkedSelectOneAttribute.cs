@@ -61,14 +61,6 @@ namespace EPiLinkedSelection
         public string[] ReadOnlyWhen { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use content data.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [use content data]; otherwise, <c>false</c>.
-        /// </value>
-        public bool UseContentData { get; set; }
-
-        /// <summary>
         /// When implemented in a class, provides metadata to the model metadata creation process.
         /// </summary>
         /// <param name="metadata">The model metadata.</param>
@@ -76,32 +68,23 @@ namespace EPiLinkedSelection
         {
             var contentDataMetadata = metadata as ContentDataMetadata;
             if (contentDataMetadata == null || contentDataMetadata.OwnerContent == null)
+            {
                 return;
-
-            contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
-            contentDataMetadata.EditorConfiguration[Constants.UseContentData] = UseContentData;
+            }
 
             var iContent = contentDataMetadata.OwnerContent as IContent;
-            if (iContent != null)
+            if (iContent == null)
             {
-                var contentDataStoreUrl = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}");
-                contentDataMetadata.EditorConfiguration[Constants.ContentDataStoreUrl] = string.Format(CultureInfo.InvariantCulture, contentDataStoreUrl, iContent.ContentLink.ToString()).ToLower();
+                return;
             }
 
-            var format = _moduleTable.Service.ResolvePath("epilinkedselection", "stores/linkedselection/{0}/");
-            contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
+            contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
 
-            // This property is read only when any of these properties are null or empty.
-            if (ReadOnlyWhen != null)
-            {
-                contentDataMetadata.EditorConfiguration[Constants.ReadOnlyWhen] = ReadOnlyWhen.Select(x => char.ToLowerInvariant(x[0]) + x.Substring(1));
-                contentDataMetadata.IsReadOnly = contentDataMetadata.OwnerContent.Property.Any(IsReadOnly);
-            }
-            else
-            {
-                contentDataMetadata.EditorConfiguration[Constants.ReadOnlyWhen] = new string[0];
-            }
-
+            //var format = "/modules/app/stores/linkedselection/{0}/";// _moduleTable.Service.ResolvePath("epilinkedselection", "stores/linkedselection/{0}/");
+            //contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
+            var urlFormat = "/modules/app/stores/linkedselection/{0}/";//var contentDataStoreUrl = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}");
+            contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, urlFormat, LinkedSelectionFactoryType.FullName);
+            
             // This property depends on the values of these properties.
             IDictionary<string, object> values = new Dictionary<string, object>();
 
@@ -117,9 +100,7 @@ namespace EPiLinkedSelection
 
             var linkedSelectionFactory = _serviceLocator.Service.GetInstance(LinkedSelectionFactoryType) as ILinkedSelectionFactory;
 
-            contentDataMetadata.EditorConfiguration[Constants.Selections] = UseContentData ?
-                linkedSelectionFactory.GetSelectionsByContentData(contentDataMetadata.OwnerContent) :
-                linkedSelectionFactory.GetSelections(values as Dictionary<string, object>);
+            contentDataMetadata.EditorConfiguration[Constants.Selections] = linkedSelectionFactory.GetSelections(contentDataMetadata.OwnerContent);
         }
 
         /// <summary>
