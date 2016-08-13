@@ -53,10 +53,10 @@ namespace EPiLinkedSelection
         public string[] LinkedTo { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this property should be read only when the list of <see cref="EPiServer.Shell.ObjectEditing.ISelectItem"/> is empty.
+        /// Gets or sets a value indicating whether this property should be read-only when the list of <see cref="EPiServer.Shell.ObjectEditing.ISelectItem"/> is empty.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if property should be read only; otherwise, <c>false</c>.
+        ///   <c>true</c> if property should be read-only when the list of <see cref="EPiServer.Shell.ObjectEditing.ISelectItem"/> is empty; otherwise, <c>false</c>.
         /// </value>
         public bool ReadOnlyOnEmpty { get; set; }
 
@@ -81,9 +81,7 @@ namespace EPiLinkedSelection
             contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
             contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty] = ReadOnlyOnEmpty;
 
-            //var format = "/modules/app/stores/linkedselection/{0}/";// _moduleTable.Service.ResolvePath("epilinkedselection", "stores/linkedselection/{0}/");
-            //contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
-            var urlFormat = "/modules/app/stores/linkedselection/{0}/";//var contentDataStoreUrl = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}");
+            var urlFormat = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}"); //"/modules/app/stores/linkedselection/{0}/";
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, urlFormat, LinkedSelectionFactoryType.FullName);
             
             // This property is linked to the values of these properties.
