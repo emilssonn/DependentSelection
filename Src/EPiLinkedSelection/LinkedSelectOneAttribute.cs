@@ -45,20 +45,20 @@ namespace EPiLinkedSelection
         public Type LinkedSelectionFactoryType { get; private set; }
 
         /// <summary>
-        /// Gets or sets the properties to depend on.
+        /// Gets or sets the properties to be linked to.
         /// </summary>
         /// <value>
-        /// The properties to depend on.
+        /// The properties to be linked to.
         /// </value>
-        public string[] DependsOn { get; set; }
+        public string[] LinkedTo { get; set; }
 
         /// <summary>
-        /// Gets or sets the properties that decides if this property should be read only.
+        /// Gets or sets a value indicating whether this property should be read only when the list of <see cref="EPiServer.Shell.ObjectEditing.ISelectItem"/> is empty.
         /// </summary>
         /// <value>
-        /// The properties that decides if this property should be read only.
+        ///   <c>true</c> if property should be read only; otherwise, <c>false</c>.
         /// </value>
-        public string[] ReadOnlyWhen { get; set; }
+        public bool ReadOnlyOnEmpty { get; set; }
 
         /// <summary>
         /// When implemented in a class, provides metadata to the model metadata creation process.
@@ -79,54 +79,34 @@ namespace EPiLinkedSelection
             }
 
             contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
+            contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty] = ReadOnlyOnEmpty;
 
             //var format = "/modules/app/stores/linkedselection/{0}/";// _moduleTable.Service.ResolvePath("epilinkedselection", "stores/linkedselection/{0}/");
             //contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, format, LinkedSelectionFactoryType.FullName);
             var urlFormat = "/modules/app/stores/linkedselection/{0}/";//var contentDataStoreUrl = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}");
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, urlFormat, LinkedSelectionFactoryType.FullName);
             
-            // This property depends on the values of these properties.
+            // This property is linked to the values of these properties.
             IDictionary<string, object> values = new Dictionary<string, object>();
 
-            if (DependsOn != null)
+            if (LinkedTo != null)
             {
-                foreach (var keyValuePair in contentDataMetadata.OwnerContent.Property.Where(p => DependsOn.Contains(p.Name)).Select(p => new KeyValuePair<string, object>(char.ToLowerInvariant(p.Name[0]) + p.Name.Substring(1), p.Value)))
+                foreach (var keyValuePair in contentDataMetadata.OwnerContent.Property.Where(p => LinkedTo.Contains(p.Name) && p.Name != metadata.PropertyName).Select(p => new KeyValuePair<string, object>(char.ToLowerInvariant(p.Name[0]) + p.Name.Substring(1), p.Value)))
                 {
                     values.Add(keyValuePair);
                 }
             }
 
-            contentDataMetadata.EditorConfiguration[Constants.DependsOn] = values;
+            contentDataMetadata.EditorConfiguration[Constants.LinkedTo] = values;
 
             var linkedSelectionFactory = _serviceLocator.Service.GetInstance(LinkedSelectionFactoryType) as ILinkedSelectionFactory;
+            var selections = linkedSelectionFactory.GetSelections(contentDataMetadata.OwnerContent);
+            contentDataMetadata.EditorConfiguration[Constants.Selections] = selections;
 
-            contentDataMetadata.EditorConfiguration[Constants.Selections] = linkedSelectionFactory.GetSelections(contentDataMetadata.OwnerContent);
-        }
-
-        /// <summary>
-        /// Determines whether this property should be read only.
-        /// This property is readonly if the passed property is one of the properties specified in <see cref="LinkedSelectOneAttribute.ReadOnlyWhen"/> and is null or white space.
-        /// </summary>
-        /// <param name="property">The property.</param>
-        /// <returns></returns>
-        private bool IsReadOnly(PropertyData property)
-        {
-            var readOnly = false;
-
-            if (!ReadOnlyWhen.Contains(property.Name))
+            if (ReadOnlyOnEmpty && !selections.Any())
             {
-                return readOnly;
+                contentDataMetadata.IsReadOnly = true;
             }
-
-            if (property.Type == PropertyDataType.String || property.Type == PropertyDataType.LongString)
-            {
-                readOnly = string.IsNullOrWhiteSpace(property.Value as string);
-            }
-            else
-            {
-                readOnly = property.Value == null;
-            }
-            return readOnly;
         }
     }
 }

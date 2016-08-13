@@ -2,8 +2,8 @@
 {
     internal static class Constants
     {
-        public const string DependsOn = "dependsOn";
-        public const string ReadOnlyWhen = "readOnlyWhen";
+        public const string LinkedTo = "linkedTo";
+        public const string ReadOnlyOnEmpty = "readOnlyOnEmpty";
         public const string Selections = "selections";
         public const string StoreUrl = "storeUrl";
     }
