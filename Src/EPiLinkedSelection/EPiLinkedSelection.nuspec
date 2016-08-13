@@ -6,12 +6,12 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <licenseUrl>https://github.com/emilssonn/EPiLinkedSelection/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/emilssonn/EPiLinkedSelection</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2016</copyright>
+    <copyright>$copyright$</copyright>
     <tags>EPiServerModulePackage EPiServer Linked Selection</tags>
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version="[5,6)" />
