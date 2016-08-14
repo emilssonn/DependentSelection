@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System.Globalization;
+using EPiServer.Cms.Shell.UI.ObjectEditing;
+using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Modules;
-using EPiServer.Core;
 using EPiServer.Shell.ObjectEditing;
-using EPiServer.Cms.Shell.UI.ObjectEditing;
-using System.Web;
-using System.Globalization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace EPiLinkedSelection.Test
 {
-	/// <summary>
-	/// Summary description for LinkedSelectOneAttributeTest
-	/// </summary>
-	[TestClass]
+    /// <summary>
+    /// Summary description for LinkedSelectOneAttributeTest
+    /// </summary>
+    [TestClass]
 	public class LinkedSelectOneAttributeTest
 	{
         private Mock<IServiceLocator> _serviceLocatorMock;
