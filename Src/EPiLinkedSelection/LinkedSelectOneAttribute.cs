@@ -81,7 +81,7 @@ namespace EPiLinkedSelection
             contentDataMetadata.ClientEditingClass = "epi-linked-selection/LinkedSelectionEditor";
             contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty] = ReadOnlyOnEmpty;
 
-            var urlFormat = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}"); //"/modules/app/stores/linkedselection/{0}/";
+            var urlFormat = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}");
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, urlFormat, LinkedSelectionFactoryType.FullName);
             
             // This property is linked to the values of these properties.

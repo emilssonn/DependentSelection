@@ -11,9 +11,6 @@ using Moq;
 
 namespace EPiLinkedSelection.Test
 {
-    /// <summary>
-    /// Summary description for LinkedSelectOneAttributeTest
-    /// </summary>
     [TestClass]
 	public class LinkedSelectOneAttributeTest
 	{
