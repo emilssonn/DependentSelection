@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using EPiServer.Cms.Shell.UI.ObjectEditing;
 using EPiServer.Core;
-using EPiServer.ServiceLocation;
-using EPiServer.Shell.Modules;
 using EPiServer.Shell.ObjectEditing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -12,28 +9,8 @@ using Moq;
 namespace EPiLinkedSelection.Test
 {
     [TestClass]
-	public class LinkedSelectOneAttributeTest
-	{
-        private Mock<IServiceLocator> _serviceLocatorMock;
-
-        [TestInitialize()]
-        public void LinkedSelectOneAttributeTestInitialize()
-        {
-            _serviceLocatorMock = new Mock<IServiceLocator>();
-
-            var moduleTableMock = new Mock<ModuleTable>();
-            moduleTableMock.Setup(x => x.ResolvePath("cms", "stores/contentdata/{0}")).Returns("cms/stores/contentdata/{0}");
-            _serviceLocatorMock.Setup(x => x.GetInstance<ModuleTable>()).Returns(moduleTableMock.Object);
-
-            var linkedSelectionFactoryMock = new Mock<ILinkedSelectionFactory>();
-            linkedSelectionFactoryMock.Setup(x => x.GetSelections(It.IsAny<IContent>())).Returns(new List<ISelectItem>() { new SelectItem() { Value = "value", Text = "text" } });
-            _serviceLocatorMock.Setup(x => x.GetInstance(typeof(Mock<ILinkedSelectionFactory>))).Returns(linkedSelectionFactoryMock.Object);
-
-            _serviceLocatorMock.Setup(x => x.GetInstance<IServiceLocator>()).Returns(_serviceLocatorMock.Object);
-
-            ServiceLocator.SetLocator(_serviceLocatorMock.Object);
-        }
-
+	public class LinkedSelectOneAttributeTest : BaseLinkedSelectAttributeTest
+    {
         [TestMethod]
 		public void CanCreateWithValidValues()
 		{
@@ -79,7 +56,7 @@ namespace EPiLinkedSelection.Test
 
             Assert.AreEqual("epi-linked-selection/LinkedSelectionEditor", contentDataMetadata.ClientEditingClass);
             Assert.AreEqual(linkedSelectOneAttribute.ReadOnlyOnEmpty, contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty]);
-            Assert.AreEqual(string.Format(CultureInfo.InvariantCulture, "cms/stores/contentdata/{0}", type.FullName), contentDataMetadata.EditorConfiguration[Constants.StoreUrl]);
+            Assert.AreEqual(string.Format(CultureInfo.InvariantCulture, ResolvePathReturns, type.FullName), contentDataMetadata.EditorConfiguration[Constants.StoreUrl]);
             Assert.AreEqual(1, (contentDataMetadata.EditorConfiguration[Constants.Selections] as IList<ISelectItem>).Count);
             Assert.AreEqual(0, (contentDataMetadata.EditorConfiguration[Constants.LinkedTo] as IDictionary<string, object>).Count);
             Assert.IsFalse(contentDataMetadata.IsReadOnly);
@@ -202,13 +179,6 @@ namespace EPiLinkedSelection.Test
             Assert.IsTrue(linkedSelectOneAttribute.ReadOnlyOnEmpty);
             Assert.AreEqual(0, (contentDataMetadata.EditorConfiguration[Constants.Selections] as IList<ISelectItem>).Count);
             Assert.IsTrue(contentDataMetadata.IsReadOnly);
-        }
-
-        private ContentDataMetadata GetContentDataMetadata()
-        {
-            var extendedDataAnnotationsModelMetadataProviderMock = new Mock<ExtendedDataAnnotationsModelMetadataProvider>();
-
-            return new ContentDataMetadata(null, null, typeof(Mock<ILinkedSelectionFactory>), "annotatedProperty", null, extendedDataAnnotationsModelMetadataProviderMock.Object, null, null);
         }
     }
 }

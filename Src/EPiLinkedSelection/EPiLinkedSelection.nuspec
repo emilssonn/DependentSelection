@@ -21,5 +21,6 @@
   <files>
     <file src="module.config" target="content/modules/_protected/EPiLinkedSelection" />
     <file src="ClientResources/LinkedSelectionEditor.js" target="content/modules/_protected/EPiLinkedSelection/ClientResources" />
+    <file src="ClientResources/LinkedCheckBoxListEditor.js" target="content/modules/_protected/EPiLinkedSelection/ClientResources" />
   </files>
 </package>

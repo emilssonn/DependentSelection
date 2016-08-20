@@ -180,8 +180,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseLinkedSelectAttributeTest.cs" />
+    <Compile Include="LinkedSelectAttributeTest.cs" />
     <Compile Include="LinkedSelectionFactoryRegistrationAttributeTest.cs" />
     <Compile Include="LinkedSelectionStoreTest.cs" />
+    <Compile Include="LinkedSelectManyAttributeTest.cs" />
     <Compile Include="LinkedSelectOneAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

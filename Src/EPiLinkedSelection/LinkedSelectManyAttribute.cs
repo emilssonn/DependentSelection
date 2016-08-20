@@ -7,14 +7,14 @@ namespace EPiLinkedSelection
     /// </summary>
     /// <seealso cref="EPiLinkedSelection.LinkedSelectAttribute" />
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class LinkedSelectOneAttribute : LinkedSelectAttribute
+    public class LinkedSelectManyAttribute : LinkedSelectAttribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LinkedSelectOneAttribute" /> class.
+        /// Initializes a new instance of the <see cref="LinkedSelectManyAttribute"/> class.
         /// </summary>
         /// <param name="linkedSelectionFactoryType">Type of the linked selection factory.</param>
-        public LinkedSelectOneAttribute(Type linkedSelectionFactoryType) 
-            : base(linkedSelectionFactoryType, "epi-linked-selection/LinkedSelectionEditor")
+        public LinkedSelectManyAttribute(Type linkedSelectionFactoryType) 
+            : base(linkedSelectionFactoryType, "epi-linked-selection/LinkedCheckBoxListEditor")
         {
         }
     }

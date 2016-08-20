@@ -4,10 +4,12 @@
     "dojo/_base/lang",
     "dojox/mvc/equals",
     "dojo/aspect",
+    "dojo/_base/array",
+    "dojo/dom-construct",
 
     // EPi
     "epi/dependency",
-    "epi-cms/contentediting/editors/SelectionEditor",
+    "epi-cms/contentediting/editors/CheckBoxListEditor",
     "epi/shell/store/JsonRest"
 ],
 function (
@@ -16,13 +18,15 @@ function (
     lang,
     equals,
     aspect,
+    array,
+    domConstruct,
 
     // EPi
     dependency,
-    SelectionEditor,
+    CheckBoxListEditor,
     JsonRest
 ) {
-    return declare([SelectionEditor], {
+    return declare([CheckBoxListEditor], {
         _onItemChangedHandle: null,
         _restStore: null,
 
@@ -62,13 +66,27 @@ function (
             if (this.readOnlyOnEmpty !== true || (this.readOnlyOnEmpty === true && items.length > 0)) {
                 this.set("readOnly", false);
             }
+
+            var checkbox;
+            while (checkbox = this._checkboxes.pop()) {
+                checkbox.destroyRecursive();
+            }
+
+            var labelClickHandle;
+            while (labelClickHandle = this._labelClickHandles.pop()) {
+                labelClickHandle.remove();
+            }
+
+            domConstruct.empty(this.domNode);
+
             this.set("selections", items);
             this.set("value", null);
-            this._setSelectionsAttr(items);
-            this._setValueAttr(null, undefined);
+            this._setValueAttr(null);
             if (this.required) {
                 this.set("state", "Error");
             }
+
+            array.forEach(this.selections, this._addCheckBoxForItem, this);
         }
     });
 });
