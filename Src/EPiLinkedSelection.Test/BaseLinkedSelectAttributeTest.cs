@@ -9,6 +9,7 @@ using Moq;
 
 namespace EPiLinkedSelection.Test
 {
+    [TestClass]
     public abstract class BaseLinkedSelectAttributeTest
     {
         protected Mock<IServiceLocator> _serviceLocatorMock;
