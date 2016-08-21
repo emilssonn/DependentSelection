@@ -17,7 +17,7 @@ cache:
 
 environment:
   COVERALLS_REPO_TOKEN:
-    secure: CsPPggRM0ksld8FV0slqoTeIqUfrjWk7AIndTHUsmV6nLicUZBldTSS6sIysrxkc
+    secure: Gi2xlqI4/SNhWzFAJ5d5BE3hKV4gzEvK9mRWqgzaXDn6aZUmQ3ZmOv6nSwfAqgb3
 
 before_build:
   - cmd: nuget restore src/EPiDependentSelection.sln -verbosity quiet
