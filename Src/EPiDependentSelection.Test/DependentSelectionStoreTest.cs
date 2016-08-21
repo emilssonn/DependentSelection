@@ -9,15 +9,15 @@ using EPiServer.Shell.Services.Rest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace EPiLinkedSelection.Test
+namespace EPiDependentSelection.Test
 {
     [TestClass]
-    public class LinkedSelectionStoreTest
+    public class DependentSelectionStoreTest
     {
         private Mock<IServiceLocator> _serviceLocatorMock;
 
         [TestInitialize()]
-        public void LinkedSelectOneAttributeTestInitialize()
+        public void DependentSelectOneAttributeTestInitialize()
         {
             _serviceLocatorMock = new Mock<IServiceLocator>();
 
@@ -31,10 +31,10 @@ namespace EPiLinkedSelection.Test
         [TestMethod]
         public void CanGetSelections()
         {
-            var linkedSelectionFactoryMock = new Mock<ILinkedSelectionFactory>();
-            var linkedSelectionStore = new LinkedSelectionStore(new List<ILinkedSelectionFactory>() { linkedSelectionFactoryMock.Object });
+            var dependentSelectionFactoryMock = new Mock<IDependentSelectionFactory>();
+            var dependentSelectionStore = new DependentSelectionStore(new List<IDependentSelectionFactory>() { dependentSelectionFactoryMock.Object });
 
-            var result = linkedSelectionStore.Get(linkedSelectionFactoryMock.Object.GetType().FullName, "1") as RestResult;
+            var result = dependentSelectionStore.Get(dependentSelectionFactoryMock.Object.GetType().FullName, "1") as RestResult;
 
 #pragma warning disable CS0618 // Type or member is obsolete
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
@@ -45,13 +45,13 @@ namespace EPiLinkedSelection.Test
         [TestMethod]
         public void CanNotGetSelections()
         {
-            var linkedSelectionFactoryMock = new Mock<ILinkedSelectionFactory>();
-            var linkedSelectionStore = new LinkedSelectionStore(new List<ILinkedSelectionFactory>() { linkedSelectionFactoryMock.Object });
+            var dependentSelectionFactoryMock = new Mock<IDependentSelectionFactory>();
+            var dependentSelectionStore = new DependentSelectionStore(new List<IDependentSelectionFactory>() { dependentSelectionFactoryMock.Object });
 
-            var result = linkedSelectionStore.Get("Invalid type name", "1") as RestStatusCodeResult;
+            var result = dependentSelectionStore.Get("Invalid type name", "1") as RestStatusCodeResult;
 
             Assert.AreEqual((int)HttpStatusCode.NotFound, result.StatusCode);
-            Assert.AreEqual("No matching linked selection factory was found", result.StatusDescription);
+            Assert.AreEqual("No matching dependent selection factory was found", result.StatusDescription);
         }
 
     }

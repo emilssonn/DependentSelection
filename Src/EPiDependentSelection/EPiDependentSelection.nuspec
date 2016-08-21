@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>EPiDependentSelection</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/emilssonn/EPiDependentSelection/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/emilssonn/EPiDependentSelection</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes></releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>EPiServerModulePackage EPiServer Dependent Selection</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="[5,6)" />
+      <dependency id="EPiServer.CMS.UI.Core" version="[9,10)" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="module.config" target="content/modules/_protected/EPiDependentSelection" />
+    <file src="ClientResources/DependentSelectionEditor.js" target="content/modules/_protected/EPiDependentSelection/ClientResources" />
+    <file src="ClientResources/DependentCheckBoxListEditor.js" target="content/modules/_protected/EPiDependentSelection/ClientResources" />
+  </files>
+</package>

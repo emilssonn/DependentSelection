@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace EPiLinkedSelection.Test
+namespace EPiDependentSelection.Test
 {
     [TestClass]
-    public class LinkedSelectAttributeTest
+    public class DependentSelectAttributeTest
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -14,8 +14,8 @@ namespace EPiLinkedSelection.Test
             /// Throws <see cref="System.Reflection.TargetInvocationException"/>, the inner exception contains the real exception.
             try
             {
-                var linkedSelectAttributeMock = new Mock<LinkedSelectAttribute>(typeof(Mock<ILinkedSelectionFactory>), "");
-                var test = linkedSelectAttributeMock.Object;
+                var dependentSelectAttributeMock = new Mock<DependentSelectAttribute>(typeof(Mock<IDependentSelectionFactory>), "");
+                var test = dependentSelectAttributeMock.Object;
             }
             catch (Exception e)
             {

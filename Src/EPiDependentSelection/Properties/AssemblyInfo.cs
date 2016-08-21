@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EPiLinkedSelection")]
-[assembly: AssemblyDescription("EPiLinkedSelection")]
+[assembly: AssemblyTitle("EPiDependentSelection")]
+[assembly: AssemblyDescription("EPiDependentSelection adds support for dependent selections to the EPiServer Edit UI.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Peter Emilsson")]
-[assembly: AssemblyProduct("EPiLinkedSelection")]
+[assembly: AssemblyProduct("EPiDependentSelection")]
 [assembly: AssemblyCopyright("Copyright © 2016 Peter Emilsson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -35,4 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyFileVersion("0.1.0.0")]
 
-[assembly: InternalsVisibleTo("EPiLinkedSelection.Test")]
+[assembly: InternalsVisibleTo("EPiDependentSelection.Test")]

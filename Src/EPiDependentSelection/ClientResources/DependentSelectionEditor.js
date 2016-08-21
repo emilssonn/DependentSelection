@@ -46,10 +46,10 @@ function (
         },
 
         _update: function (x, data) {
-            for (var prop in this.linkedTo) {
-                if (this.linkedTo.hasOwnProperty(prop) === true && data[1].properties.hasOwnProperty(prop) === true && equals(data[1].properties[prop], this.linkedTo[prop]) !== true) {
+            for (var prop in this.dependentOn) {
+                if (this.dependentOn.hasOwnProperty(prop) === true && data[1].properties.hasOwnProperty(prop) === true && equals(data[1].properties[prop], this.dependentOn[prop]) !== true) {
                     this.set("readOnly", true);
-                    this.linkedTo[prop] = data[1].properties[prop];
+                    this.dependentOn[prop] = data[1].properties[prop];
                     this._restStore.query({ complexReference: data[0] }).then(lang.hitch(this, function (items) {
                         this._updateEditor(items);
                     }));

@@ -6,34 +6,34 @@ using EPiServer.Shell.ObjectEditing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace EPiLinkedSelection.Test
+namespace EPiDependentSelection.Test
 {
     [TestClass]
-    public class LinkedSelectManyAttributeTest : BaseLinkedSelectAttributeTest
+    public class DependentSelectManyAttributeTest : BaseDependentSelectAttributeTest
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void CanNotCreateWithInValidType()
         {
-            var linkedSelectOneAttribute = new LinkedSelectManyAttribute(typeof(ILinkedSelectionFactory));
+            var dependentSelectManyAttribute = new DependentSelectManyAttribute(typeof(IDependentSelectionFactory));
         }
 
         [TestMethod]
         public void CanRunBasicOnMetadataCreated()
         {
-            var type = typeof(Mock<ILinkedSelectionFactory>);
-            var linkedSelectManyAttribute = new LinkedSelectManyAttribute(type);
+            var type = typeof(Mock<IDependentSelectionFactory>);
+            var dependentSelectManyAttribute = new DependentSelectManyAttribute(type);
 
             var contentDataMetadata = GetContentDataMetadata();
             contentDataMetadata.OwnerContent = new Mock<IContent>().Object;
 
-            linkedSelectManyAttribute.OnMetadataCreated(contentDataMetadata);
+            dependentSelectManyAttribute.OnMetadataCreated(contentDataMetadata);
 
-            Assert.AreEqual("epi-linked-selection/LinkedCheckBoxListEditor", contentDataMetadata.ClientEditingClass);
-            Assert.AreEqual(linkedSelectManyAttribute.ReadOnlyOnEmpty, contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty]);
+            Assert.AreEqual("epi-dependent-selection/DependentCheckBoxListEditor", contentDataMetadata.ClientEditingClass);
+            Assert.AreEqual(dependentSelectManyAttribute.ReadOnlyOnEmpty, contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty]);
             Assert.AreEqual(string.Format(CultureInfo.InvariantCulture, ResolvePathReturns, type.FullName), contentDataMetadata.EditorConfiguration[Constants.StoreUrl]);
             Assert.AreEqual(1, (contentDataMetadata.EditorConfiguration[Constants.Selections] as IList<ISelectItem>).Count);
-            Assert.AreEqual(0, (contentDataMetadata.EditorConfiguration[Constants.LinkedTo] as IDictionary<string, object>).Count);
+            Assert.AreEqual(0, (contentDataMetadata.EditorConfiguration[Constants.DependentOn] as IDictionary<string, object>).Count);
             Assert.IsFalse(contentDataMetadata.IsReadOnly);
         }
     }

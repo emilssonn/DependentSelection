@@ -2,12 +2,12 @@
 using EPiServer.Core;
 using EPiServer.Shell.ObjectEditing;
 
-namespace EPiLinkedSelection
+namespace EPiDependentSelection
 {
     /// <summary>
     /// Creates a list of <see cref="ISelectItem" /> for a specific property.
     /// </summary>
-    public interface ILinkedSelectionFactory
+    public interface IDependentSelectionFactory
     {
         /// <summary>
         /// Creates a list of <see cref="ISelectItem" /> for a specific property.

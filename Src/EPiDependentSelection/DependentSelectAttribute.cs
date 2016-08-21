@@ -8,34 +8,34 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Modules;
 
-namespace EPiLinkedSelection
+namespace EPiDependentSelection
 {
     /// <summary>
     /// 
     /// </summary>
     /// <seealso cref="System.Attribute" />
     /// <seealso cref="System.Web.Mvc.IMetadataAware" />
-    public abstract class LinkedSelectAttribute : Attribute, IMetadataAware
+    public abstract class DependentSelectAttribute : Attribute, IMetadataAware
     {
         private readonly Injected<IServiceLocator> _serviceLocator;
         private readonly Injected<ModuleTable> _moduleTable;
         private readonly string _clientEditingClass;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LinkedSelectAttribute"/> class.
+        /// Initializes a new instance of the <see cref="DependentSelectAttribute"/> class.
         /// </summary>
-        /// <param name="linkedSelectionFactoryType">Type of the linked selection factory.</param>
+        /// <param name="dependentSelectionFactoryType">Type of the dependent selection factory.</param>
         /// <param name="clientEditingClass">The client editing class.</param>
         /// <exception cref="System.ArgumentException">
-        /// linkedSelectionFactoryType needs to implement ILinkedSelectionFactory;linkedSelectionFactoryType
+        /// dependentSelectionFactoryType needs to implement IDependentSelectionFactory;dependentSelectionFactoryType
         /// or
         /// clientEditingClass cannot be null or white space;clientEditingClass
         /// </exception>
-        public LinkedSelectAttribute(Type linkedSelectionFactoryType, string clientEditingClass)
+        public DependentSelectAttribute(Type dependentSelectionFactoryType, string clientEditingClass)
         {
-            if (linkedSelectionFactoryType.IsAssignableFrom(typeof(ILinkedSelectionFactory)))
+            if (dependentSelectionFactoryType.IsAssignableFrom(typeof(IDependentSelectionFactory)))
             {
-                throw new ArgumentException("linkedSelectionFactoryType needs to implement ILinkedSelectionFactory", "linkedSelectionFactoryType");
+                throw new ArgumentException("dependentSelectionFactoryType needs to implement IDependentSelectionFactory", "dependentSelectionFactoryType");
             }
 
             if (string.IsNullOrWhiteSpace(clientEditingClass))
@@ -43,25 +43,25 @@ namespace EPiLinkedSelection
                 throw new ArgumentException("clientEditingClass cannot be null or white space", "clientEditingClass");
             }
 
-            LinkedSelectionFactoryType = linkedSelectionFactoryType;
+            DependentSelectionFactoryType = dependentSelectionFactoryType;
             _clientEditingClass = clientEditingClass;
         }
 
         /// <summary>
-        /// Gets the type of the linked selection factory.
+        /// Gets the type of the dependent selection factory.
         /// </summary>
         /// <value>
-        /// The type of the linked selection factory.
+        /// The type of the dependent selection factory.
         /// </value>
-        public Type LinkedSelectionFactoryType { get; private set; }
+        public Type DependentSelectionFactoryType { get; private set; }
 
         /// <summary>
-        /// Gets or sets the properties to be linked to.
+        /// Gets or sets the properties this property is dependent on.
         /// </summary>
         /// <value>
-        /// The properties to be linked to.
+        /// The properties this property is dependent on.
         /// </value>
-        public string[] LinkedTo { get; set; }
+        public string[] DependentOn { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this property should be read-only when the list of <see cref="EPiServer.Shell.ObjectEditing.ISelectItem"/> is empty.
@@ -92,24 +92,24 @@ namespace EPiLinkedSelection
             contentDataMetadata.ClientEditingClass = _clientEditingClass;
             contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty] = ReadOnlyOnEmpty;
 
-            var urlFormat = _moduleTable.Service.ResolvePath("cms", "stores/contentdata/{0}");
-            contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, urlFormat, LinkedSelectionFactoryType.FullName);
+            var urlFormat = _moduleTable.Service.ResolvePath("EPiDependentSelection", "stores/dependentselection/{0}/");
+            contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, urlFormat, DependentSelectionFactoryType.FullName);
 
-            // This property is linked to the values of these properties.
+            // This property is dependent on the values of these properties.
             IDictionary<string, object> values = new Dictionary<string, object>();
 
-            if (LinkedTo != null)
+            if (DependentOn != null)
             {
-                foreach (var keyValuePair in contentDataMetadata.OwnerContent.Property.Where(p => LinkedTo.Contains(p.Name) && p.Name != metadata.PropertyName).Select(p => new KeyValuePair<string, object>(char.ToLowerInvariant(p.Name[0]) + p.Name.Substring(1), p.Value)))
+                foreach (var keyValuePair in contentDataMetadata.OwnerContent.Property.Where(p => DependentOn.Contains(p.Name) && p.Name != metadata.PropertyName).Select(p => new KeyValuePair<string, object>(char.ToLowerInvariant(p.Name[0]) + p.Name.Substring(1), p.Value)))
                 {
                     values.Add(keyValuePair);
                 }
             }
 
-            contentDataMetadata.EditorConfiguration[Constants.LinkedTo] = values;
+            contentDataMetadata.EditorConfiguration[Constants.DependentOn] = values;
 
-            var linkedSelectionFactory = _serviceLocator.Service.GetInstance(LinkedSelectionFactoryType) as ILinkedSelectionFactory;
-            var selections = linkedSelectionFactory.GetSelections(contentDataMetadata.OwnerContent);
+            var dependentSelectionFactory = _serviceLocator.Service.GetInstance(DependentSelectionFactoryType) as IDependentSelectionFactory;
+            var selections = dependentSelectionFactory.GetSelections(contentDataMetadata.OwnerContent);
             contentDataMetadata.EditorConfiguration[Constants.Selections] = selections;
 
             if (ReadOnlyOnEmpty && !selections.Any())
