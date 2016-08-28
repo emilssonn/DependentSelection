@@ -63,6 +63,8 @@ function (
         },
 
         _updateEditor: function (items) {
+            this.onFocus();
+
             if (this.readOnlyOnEmpty !== true || (this.readOnlyOnEmpty === true && items.length > 0)) {
                 this.set("readOnly", false);
             }
@@ -87,6 +89,8 @@ function (
             }
 
             array.forEach(this.selections, this._addCheckBoxForItem, this);
+
+            this.onBlur();
         }
     });
 });
