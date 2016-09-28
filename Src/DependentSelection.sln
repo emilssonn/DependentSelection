@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiDependentSelection", "EPiDependentSelection\EPiDependentSelection.csproj", "{4DFFEEA9-112D-4F0E-B7E7-4B81F89DDA70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependentSelection", "DependentSelection\DependentSelection.csproj", "{4DFFEEA9-112D-4F0E-B7E7-4B81F89DDA70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiDependentSelection.Test", "EPiDependentSelection.Test\EPiDependentSelection.Test.csproj", "{203DC3B4-98C2-4E4A-A255-ABA144D5EA3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependentSelection.Test", "DependentSelection.Test\DependentSelection.Test.csproj", "{203DC3B4-98C2-4E4A-A255-ABA144D5EA3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

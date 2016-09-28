@@ -1,7 +1,7 @@
-# EPiDependentSelection
+# DependentSelection
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jo3poi7le8ot3k8x?svg=true)](https://ci.appveyor.com/project/emilssonn/epidependentselection)
-[![Coverage Status](https://coveralls.io/repos/github/emilssonn/EPiDependentSelection/badge.svg)](https://coveralls.io/github/emilssonn/EPiDependentSelection)
+[![Build status](https://ci.appveyor.com/api/projects/status/jo3poi7le8ot3k8x?svg=true)](https://ci.appveyor.com/project/emilssonn/DependentSelection)
+[![Coverage Status](https://coveralls.io/repos/github/emilssonn/DependentSelection/badge.svg)](https://coveralls.io/github/emilssonn/DependentSelection)
 
 ## Usage
 
@@ -45,6 +45,6 @@ public class StandardPage : PageData
 When any of the properties in the DependentOn array changes the GetSelections method of the selection factory will be called.
 If ReadOnlyOnEmpty is set to true the property will be set to read-only if the list of selections from the GetSelections method is empty.
 
-## Known bugs
+## Known issues
 
 The attributes does not currently work in local blocks.

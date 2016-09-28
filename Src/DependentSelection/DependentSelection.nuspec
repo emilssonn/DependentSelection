@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>EPiDependentSelection</id>
+    <id>DependentSelection</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/emilssonn/EPiDependentSelection/blob/master/LICENSE.md</licenseUrl>
-    <projectUrl>https://github.com/emilssonn/EPiDependentSelection</projectUrl>
+    <licenseUrl>https://github.com/emilssonn/DependentSelection/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/emilssonn/DependentSelection</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes></releaseNotes>
@@ -19,8 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="module.config" target="content/modules/_protected/EPiDependentSelection" />
-    <file src="ClientResources/DependentSelectionEditor.js" target="content/modules/_protected/EPiDependentSelection/ClientResources" />
-    <file src="ClientResources/DependentCheckBoxListEditor.js" target="content/modules/_protected/EPiDependentSelection/ClientResources" />
+    <file src="module.config" target="content/modules/_protected/DependentSelection" />
+    <file src="ClientResources/DependentSelectionEditor.js" target="content/modules/_protected/DependentSelection/ClientResources" />
+    <file src="ClientResources/DependentCheckBoxListEditor.js" target="content/modules/_protected/DependentSelection/ClientResources" />
   </files>
 </package>

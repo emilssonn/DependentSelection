@@ -2,7 +2,7 @@
 using EPiServer.Core;
 using EPiServer.Shell.ObjectEditing;
 
-namespace EPiDependentSelection
+namespace DependentSelection
 {
     /// <summary>
     /// Creates a list of <see cref="ISelectItem" /> for a specific property.

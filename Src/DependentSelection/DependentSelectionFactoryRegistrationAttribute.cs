@@ -1,7 +1,7 @@
 ﻿using System;
 using EPiServer.ServiceLocation;
 
-namespace EPiDependentSelection
+namespace DependentSelection
 {
     /// <summary>
     /// Register a <see cref="IDependentSelectionFactory" /> instance to the IOC container.

@@ -1,4 +1,4 @@
-﻿namespace EPiDependentSelection
+﻿namespace DependentSelection
 {
     internal static class Constants
     {

@@ -6,7 +6,7 @@ using EPiServer.Shell.ObjectEditing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace EPiDependentSelection.Test
+namespace DependentSelection.Test
 {
     [TestClass]
     public class DependentSelectManyAttributeTest : BaseDependentSelectAttributeTest
@@ -29,7 +29,7 @@ namespace EPiDependentSelection.Test
 
             dependentSelectManyAttribute.OnMetadataCreated(contentDataMetadata);
 
-            Assert.AreEqual("epi-dependent-selection/DependentCheckBoxListEditor", contentDataMetadata.ClientEditingClass);
+            Assert.AreEqual("dependent-selection/DependentCheckBoxListEditor", contentDataMetadata.ClientEditingClass);
             Assert.AreEqual(dependentSelectManyAttribute.ReadOnlyOnEmpty, contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty]);
             Assert.AreEqual(string.Format(CultureInfo.InvariantCulture, ResolvePathReturns, type.FullName), contentDataMetadata.EditorConfiguration[Constants.StoreUrl]);
             Assert.AreEqual(1, (contentDataMetadata.EditorConfiguration[Constants.Selections] as IList<ISelectItem>).Count);

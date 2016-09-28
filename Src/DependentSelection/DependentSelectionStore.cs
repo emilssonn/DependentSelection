@@ -6,7 +6,7 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Services.Rest;
 
-namespace EPiDependentSelection
+namespace DependentSelection
 {
     /// <summary>
     /// 

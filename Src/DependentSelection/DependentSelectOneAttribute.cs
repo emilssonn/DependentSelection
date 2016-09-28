@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace EPiDependentSelection
+namespace DependentSelection
 {
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="EPiDependentSelection.DependentSelectAttribute" />
+    /// <seealso cref="DependentSelection.DependentSelectAttribute" />
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class DependentSelectOneAttribute : DependentSelectAttribute
     {
@@ -14,7 +14,7 @@ namespace EPiDependentSelection
         /// </summary>
         /// <param name="dependentSelectionFactoryType">Type of the dependent selection factory.</param>
         public DependentSelectOneAttribute(Type dependentSelectionFactoryType) 
-            : base(dependentSelectionFactoryType, "epi-dependent-selection/DependentSelectionEditor")
+            : base(dependentSelectionFactoryType, "dependent-selection/DependentSelectionEditor")
         {
         }
     }

@@ -8,7 +8,7 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Modules;
 
-namespace EPiDependentSelection
+namespace DependentSelection
 {
     /// <summary>
     /// 
@@ -92,7 +92,7 @@ namespace EPiDependentSelection
             contentDataMetadata.ClientEditingClass = _clientEditingClass;
             contentDataMetadata.EditorConfiguration[Constants.ReadOnlyOnEmpty] = ReadOnlyOnEmpty;
 
-            var urlFormat = _moduleTable.Service.ResolvePath("EPiDependentSelection", "stores/dependentselection/{0}/");
+            var urlFormat = _moduleTable.Service.ResolvePath("DependentSelection", "stores/dependentselection/{0}/");
             contentDataMetadata.EditorConfiguration[Constants.StoreUrl] = string.Format(CultureInfo.InvariantCulture, urlFormat, DependentSelectionFactoryType.FullName);
 
             // This property is dependent on the values of these properties.

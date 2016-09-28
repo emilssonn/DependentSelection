@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EPiDependentSelection.Test")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("DependentSelection")]
+[assembly: AssemblyDescription("DependentSelection adds support for dependent selections in the EPiServer Edit UI.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EPiDependentSelection.Test")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("Peter Emilsson")]
+[assembly: AssemblyProduct("DependentSelection")]
+[assembly: AssemblyCopyright("Copyright © 2016 Peter Emilsson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("203dc3b4-98c2-4e4a-a255-aba144d5ea3f")]
+[assembly: Guid("4dffeea9-112d-4f0e-b7e7-4b81f89dda70")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,3 +34,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.2.0.0")]
 [assembly: AssemblyFileVersion("0.2.0.0")]
+
+[assembly: InternalsVisibleTo("DependentSelection.Test")]

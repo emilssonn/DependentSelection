@@ -7,13 +7,13 @@ using EPiServer.Shell.ObjectEditing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace EPiDependentSelection.Test
+namespace DependentSelection.Test
 {
     [TestClass]
     public abstract class BaseDependentSelectAttributeTest
     {
         protected Mock<IServiceLocator> _serviceLocatorMock;
-        protected const string ResolvePathReturns = "EPiDependentSelection/stores/dependentselection/{0}/";
+        protected const string ResolvePathReturns = "DependentSelection/stores/dependentselection/{0}/";
 
         [TestInitialize()]
         public void DependentSelectOneAttributeTestInitialize()
@@ -21,7 +21,7 @@ namespace EPiDependentSelection.Test
             _serviceLocatorMock = new Mock<IServiceLocator>();
 
             var moduleTableMock = new Mock<ModuleTable>();
-            moduleTableMock.Setup(x => x.ResolvePath("EPiDependentSelection", "stores/dependentselection/{0}/")).Returns(ResolvePathReturns);
+            moduleTableMock.Setup(x => x.ResolvePath("DependentSelection", "stores/dependentselection/{0}/")).Returns(ResolvePathReturns);
             _serviceLocatorMock.Setup(x => x.GetInstance<ModuleTable>()).Returns(moduleTableMock.Object);
 
             var dependentSelectionFactoryMock = new Mock<IDependentSelectionFactory>();

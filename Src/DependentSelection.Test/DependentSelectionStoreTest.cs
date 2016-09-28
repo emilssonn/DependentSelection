@@ -9,7 +9,7 @@ using EPiServer.Shell.Services.Rest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace EPiDependentSelection.Test
+namespace DependentSelection.Test
 {
     [TestClass]
     public class DependentSelectionStoreTest

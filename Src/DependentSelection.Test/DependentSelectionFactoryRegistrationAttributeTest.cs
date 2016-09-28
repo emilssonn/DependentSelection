@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace EPiDependentSelection.Test
+namespace DependentSelection.Test
 {
     [TestClass]
     public class DependentSelectionFactoryRegistrationAttributeTest
