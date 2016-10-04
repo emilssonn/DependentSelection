@@ -1,6 +1,6 @@
 # DependentSelection
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jo3poi7le8ot3k8x?svg=true)](https://ci.appveyor.com/project/emilssonn/DependentSelection)
+[![Build status](https://ci.appveyor.com/api/projects/status/xjo4ow9lmybbw6qu?svg=true)](https://ci.appveyor.com/project/emilssonn/dependentselection)
 [![Coverage Status](https://coveralls.io/repos/github/emilssonn/DependentSelection/badge.svg)](https://coveralls.io/github/emilssonn/DependentSelection)
 
 ## Usage
