@@ -3,6 +3,14 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/xjo4ow9lmybbw6qu?svg=true)](https://ci.appveyor.com/project/emilssonn/dependentselection)
 [![Coverage Status](https://coveralls.io/repos/github/emilssonn/DependentSelection/badge.svg)](https://coveralls.io/github/emilssonn/DependentSelection)
 
+## Installation
+
+```
+PM> Install-Package DependentSelection
+```
+
+The package can be found in the [EPiServer Nuget Feed](http://nuget.episerver.com/).
+
 ## Usage
 
 Create a class that implements the IDependentSelectionFactory interface. Annotate the class with the DependentSelectionFactoryRegistration attribute to register it.

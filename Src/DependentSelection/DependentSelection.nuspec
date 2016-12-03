@@ -15,7 +15,7 @@
     <tags>EPiServerModulePackage EPiServer Dependent Selection</tags>
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version="[5,6)" />
-      <dependency id="EPiServer.CMS.UI.Core" version="[9,10)" />
+      <dependency id="EPiServer.CMS.UI.Core" version="[10,11)" />
     </dependencies>
   </metadata>
   <files>
